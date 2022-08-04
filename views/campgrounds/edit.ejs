@@ -1,0 +1,53 @@
+<% layout('layouts/boilerplate')%>
+    <div class="row">
+        <h1 class="text-center">Edit Campground</h1>
+        <div class="col-6 offset-3">
+            <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title: </label>
+                    <input class="form-control" type="text" id="title" name="campground[title]" value="<%= campground.title %>" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location: </label>
+                    <input class="form-control" type="text" id="location" name="campground[location]" value="<%= campground.location %>" required>
+                </div>
+                
+                 <!-- upload images using Multer and Cloudinary -->
+                <div class="input-group form-file custom-file mb-3">
+                    <input type="file" class="form-control form-file-input" name="campground[images]" id="images" required multiple>
+                    <label class="input-group-text form-file-label" for="imagws">Add more images</label>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="price">Price: </label>
+                    <span class="input-group-text">
+                       <b>&#36</b><input type="text" class="form-control" id="price" name="campground[price]" value="<%= campground.price %>" aria-label="Amount (to the nearest dollar)" required> .00</span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description: </label> 
+                    <!-- textarea does not use value=""-->
+                    <textarea class="form-control" type="text" id="description"
+                        name="campground[description]" required> <%= campground.description %>
+                    </textarea>
+                </div>
+                
+                <!-- ######### delete images from cloudinary --> 
+                <div class="form-check input-group">
+                    <% campground.images.forEach((image, i)=>{ %>
+                     <!-- loading virtual thumbnail images for deleting -->
+                    <img src="<%= image.thumbnail %>" class="img-thumbnail" alt="">
+                    <input class="form-check-input" type="checkbox" id="image<%= i %>" name="deleteImages[]" value="<%= image.filename %>">
+                    <label class="form-check-label ms-3" for="image<%= i %>">
+                     Delete
+                    </label>  
+                    <% }) %>
+                </div>
+                <!-- ############ -->
+                <div class="mb-3 mt-3">
+                    <button class="btn btn-info" type="submit">Update Campground</button>
+                </diV>
+            </form>
+            <a href="/campgrounds">Back to Index</a>
+        </div>
+    </div>
