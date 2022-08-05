@@ -111,7 +111,9 @@ app.use("/campgrounds/:id/reviews", reviewRoutes);
 app.use("/", userRoutes);
 
 // This only runs when everything was run and no error found!
-
+app.all("*", (req, res, next) =>{
+    next(new ExpressError("Page Not Found", 404));
+});
 
 // This is the bulit in Error class in Express. ExpressEroor.js extendeds This Error!
 app.use((err, req, res, next) =>{
@@ -123,10 +125,6 @@ app.use((err, req, res, next) =>{
     // res.status(statusCode).send(message);
     res.status(statusCode).render("error", { err });
 });
-
-app.all("*", (req, res, next) =>{
-    next(new ExpressError("Page Not Found", 404));
-})
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, ()=>{
