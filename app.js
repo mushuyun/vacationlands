@@ -111,9 +111,9 @@ app.use("/campgrounds/:id/reviews", reviewRoutes);
 app.use("/", userRoutes);
 
 // This only runs when everything was run and no error found!
-app.all("*", (req, res, next) =>{
-    next(new ExpressError("Page Not Found", 404));
-})
+// app.all("*", (req, res, next) =>{
+//     next(new ExpressError("Page Not Found", 404));
+// })
 
 // This is the bulit in Error class in Express. ExpressEroor.js extendeds This Error!
 app.use((err, req, res, next) =>{
