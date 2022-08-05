@@ -55,7 +55,7 @@ app.use(
 
 const secret = process.env.SECRET || 'shouldbeconfidential';
 const store = MongoStore.create({
-    mongoUrl: process.env.MONGO_URI, //when deploy, must use this url, can not use "local || process.env...."
+    mongoUrl: process.env.MONGO_URI,
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret
