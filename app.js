@@ -55,7 +55,7 @@ app.use(
 
 const secret = process.env.SECRET || 'shouldbeconfidential';
 const store = MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,
+    mongoUrl: MONGO_URI,
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret
@@ -74,11 +74,12 @@ const sessionConfig ={
     saveUninitialized: true,
     cookie: { 
         httpOnly: true,
-        // secure: true,     //only use when deploy
+        secure: true,     //only use when deploy
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge:1000 * 60 * 60 * 24 * 7
     }
  }
+
 app.use(session(sessionConfig));
 app.use(flash());
 app.use(passport.initialize());
