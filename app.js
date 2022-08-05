@@ -55,7 +55,7 @@ app.use(
 
 const secret = process.env.SECRET || 'shouldbeconfidential';
 const store = MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,
+    mongoUrl: MONGO_URI,
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret
@@ -74,7 +74,7 @@ const sessionConfig ={
     saveUninitialized: true,
     cookie: { 
         httpOnly: true,
-        secure: true,//only use when deploy
+        secure: true,     //only use when deploy
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge:1000 * 60 * 60 * 24 * 7
     }
@@ -110,6 +110,9 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 app.use("/", userRoutes);
 
+app.get('/', (req, res)=>{
+    res.render("campgrounds/home");
+})
 // This only runs when everything was run and no error found!
 app.all("*", (req, res, next) =>{
     next(new ExpressError("Page Not Found", 404));

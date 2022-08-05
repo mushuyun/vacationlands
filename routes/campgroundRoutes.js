@@ -12,14 +12,8 @@ const upload = multer({storage});
 
 
 router.get("/", catchAsync(campgroundController.index));
-router.get("/home", campgroundController.home)
 
 router.get("/new", isLoggedIn, campgroundController.renderNewForm);
-
-// router.post("/", upload.array("campground[image]"), (req, res)=>{
-//     console.log(req.body, req.files);
-//     res.send("It worked!")
-// })
 
 // catchAsync is used to catch Mongoose Error!!!
 // upload.array("placeholder = name in the new.ejs", here both are campground[images])!!!!!!!!!
